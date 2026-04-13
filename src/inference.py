@@ -5,9 +5,6 @@ from src.preprocess import clean_log
 model, vectorizer = joblib.load("model/model.pkl")
 
 
-# ----------------------------
-# Summary Generator
-# ----------------------------
 def generate_summary(log_text, label):
     log_lower = log_text.lower()
 

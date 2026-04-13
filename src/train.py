@@ -4,15 +4,22 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, classification_report
 import joblib
+from pathlib import Path
 
 from preprocess import clean_log
 
 # ----------------------------
+# Project paths
+# ----------------------------
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+DATA_FILE = PROJECT_ROOT / "data" / "Flutterwave AI Engineer Assessment Dataset.xlsx"
+MODEL_FILE = PROJECT_ROOT / "model" / "model.pkl"
+METRICS_FILE = PROJECT_ROOT / "outputs" / "metrics.txt"
+
+# ----------------------------
 # Load Excel (ONLY correct sheet)
 # ----------------------------
-file_path = "data/Flutterwave AI Engineer Assessment Dataset.xlsx"
-
-all_sheets = pd.read_excel(file_path, sheet_name=None)
+all_sheets = pd.read_excel(DATA_FILE, sheet_name=None)
 print("Sheets found:", list(all_sheets.keys()))
 
 # Use only actual dataset sheet
@@ -75,12 +82,14 @@ print("\nClassification Report:\n", report)
 # ----------------------------
 # Save model
 # ----------------------------
-joblib.dump((model, vectorizer), "model/model.pkl")
+MODEL_FILE.parent.mkdir(parents=True, exist_ok=True)
+joblib.dump((model, vectorizer), MODEL_FILE)
 
 # ----------------------------
 # Save metrics
 # ----------------------------
-with open("outputs/metrics.txt", "w") as f:
+METRICS_FILE.parent.mkdir(parents=True, exist_ok=True)
+with open(METRICS_FILE, "w") as f:
     f.write(f"Accuracy: {accuracy}\n\n")
     f.write(report)
 
