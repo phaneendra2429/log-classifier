@@ -1,7 +1,6 @@
 # Log Classification AI Pipeline
 
-# Project Walkthrough Video
-https://youtu.be/chx310Puc5M
+#### Project Walkthrough Video: https://youtu.be/chx310Puc5M
 
 ## Overview
 This project implements a lightweight AI pipeline to automatically classify system log entries into predefined root cause categories. It also generates structured summaries for each log and evaluates model performance using standard metrics.
